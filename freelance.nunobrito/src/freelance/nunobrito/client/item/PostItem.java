@@ -7,6 +7,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
@@ -25,6 +26,7 @@ public class PostItem extends Composite {
 	}
 
 	@UiField Label lblMessage, lblTime;
+	@UiField Button btnPostToFB;
 	
 	private Post post;
 	private MainPage mainPage;
@@ -39,16 +41,19 @@ public class PostItem extends Composite {
 
 	@UiHandler("btnPostToFB")
 	void postToFB(ClickEvent e){
+		btnPostToFB.setText("Please wait...");
 		UserService.Connect.getService().postToFacebook(post, mainPage.getUser().getToken(), new AsyncCallback<Void>() {
 			
 			@Override
 			public void onSuccess(Void result) {
 				Window.alert("Successfully Posted to your Profile Page");
+				btnPostToFB.setText("Post to Facebook");
 			}
 			
 			@Override
 			public void onFailure(Throwable caught) {
 				Window.alert(caught.getMessage());
+				//WaitDialog.hide();
 			}
 		});
 	}
