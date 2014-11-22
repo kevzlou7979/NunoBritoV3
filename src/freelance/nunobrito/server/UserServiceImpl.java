@@ -149,7 +149,7 @@ public class UserServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void postToFacebook(Post post, String accessToken) throws Exception {
-		String permissions = "publish_actions, manage_pages, status_update";
+		String permissions = "publish_actions, manage_pages";
 		Facebook facebook = new FacebookFactory().getInstance();
 
 		facebook.setOAuthAppId(DotClickConstants.FACEBOOK_CLIENT_ID,

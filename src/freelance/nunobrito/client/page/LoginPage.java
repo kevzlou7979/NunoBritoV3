@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import freelance.nunobrito.client.services.UserService;
+import freelance.nunobrito.client.ui.WaitDialog;
 import freelance.nunobrito.shared.DotClickConstants;
 import freelance.nunobrito.shared.User;
 
@@ -37,8 +38,7 @@ public class LoginPage extends Composite {
 				DotClickConstants.FACEBOOK_EMAIL_SCOPE,
 				DotClickConstants.FACEBOOK_BIRTHDAY_SCOPE,
 				DotClickConstants.FACEBOOK_HOMETOWN,
-				DotClickConstants.FACEBOOK_PUBLIC_PROFILE,
-			    "publish_actions", "manage_pages", "status_update").withScopeDelimiter(
+				DotClickConstants.FACEBOOK_PUBLIC_PROFILE).withScopeDelimiter(
 				",");
 		onOauth(req, DotClickConstants.FACEBOOK_TOKEN);
 	}
