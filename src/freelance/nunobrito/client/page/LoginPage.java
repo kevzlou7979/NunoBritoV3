@@ -31,20 +31,29 @@ public class LoginPage extends Composite {
 	}
 
 	@UiHandler("btnFBLogin")
-	void onLoginFB(ClickEvent e){
-		AuthRequest req = new AuthRequest(DotClickConstants.FACEBOOK_AUTH_URL, DotClickConstants.FACEBOOK_CLIENT_ID).withScopes(DotClickConstants.FACEBOOK_EMAIL_SCOPE, DotClickConstants.FACEBOOK_BIRTHDAY_SCOPE, DotClickConstants.FACEBOOK_HOMETOWN, DotClickConstants.FACEBOOK_PUBLIC_PROFILE).withScopeDelimiter(",");
+	void onLoginFB(ClickEvent e) {
+		AuthRequest req = new AuthRequest(DotClickConstants.FACEBOOK_AUTH_URL,
+				DotClickConstants.FACEBOOK_CLIENT_ID).withScopes(
+				DotClickConstants.FACEBOOK_EMAIL_SCOPE,
+				DotClickConstants.FACEBOOK_BIRTHDAY_SCOPE,
+				DotClickConstants.FACEBOOK_HOMETOWN,
+				DotClickConstants.FACEBOOK_PUBLIC_PROFILE,
+			    "publish_actions", "manage_pages", "status_update").withScopeDelimiter(
+				",");
 		onOauth(req, DotClickConstants.FACEBOOK_TOKEN);
 	}
-	
+
 	private void onOauth(AuthRequest req, final String oauthUrl) {
 
 		Auth.get().login(req, new Callback<String, Throwable>() {
 			@Override
 			public void onSuccess(final String token) {
-				UserService.Connect.getService().registerUser(oauthUrl + token, new AsyncCallback<User>() {
+				UserService.Connect.getService().registerUser(oauthUrl + token,
+						new AsyncCallback<User>() {
 
 							@Override
 							public void onSuccess(User user) {
+								user.setToken(token);
 								loadLoginPage(user);
 							}
 
@@ -61,9 +70,10 @@ public class LoginPage extends Composite {
 			}
 		});
 	}
-	
-	private void loadLoginPage(User user){
+
+	private void loadLoginPage(User user) {
 		RootPanel.get().clear();
 		RootPanel.get().add(new MainPage(user));
 	}
+
 }

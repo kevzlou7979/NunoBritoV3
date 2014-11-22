@@ -25,9 +25,11 @@ public class PostPanel extends Composite {
 	}
 	
 	@UiField HTMLPanel postContentPanel;
-
+	private MainPage mainPage;
+	
 	public PostPanel(MainPage mainPage) {
 		initWidget(uiBinder.createAndBindUi(this));
+		this.mainPage = mainPage;
 		getAllUserPost(mainPage.getUser());
 	}
 	
@@ -39,7 +41,7 @@ public class PostPanel extends Composite {
 			public void onSuccess(List<Post> result) {
 				if(!result.isEmpty()){
 					for(Post post : result){
-						postContentPanel.add(new PostItem(post));
+						postContentPanel.add(new PostItem(post, mainPage));
 					}
 				}else{
 					postContentPanel.add(new MessageInfo("No Recent Post", "Please wait for the next post"));

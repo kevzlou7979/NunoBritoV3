@@ -18,17 +18,24 @@ import org.codehaus.jackson.JsonToken;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.googlecode.objectify.Objectify;
 
+import facebook4j.Facebook;
+import facebook4j.FacebookFactory;
+import facebook4j.PostUpdate;
+import facebook4j.auth.AccessToken;
 import freelance.nunobrito.client.services.UserService;
+import freelance.nunobrito.shared.DotClickConstants;
 import freelance.nunobrito.shared.Post;
 import freelance.nunobrito.shared.User;
 
 @SuppressWarnings("serial")
-public class UserServiceImpl extends RemoteServiceServlet implements UserService {
-	
+public class UserServiceImpl extends RemoteServiceServlet implements
+		UserService {
+
 	private Objectify ofy = OfyService.ofy();
-	
+
 	@Override
 	public User registerUser(String oauthToken) throws Exception {
+	
 		final StringBuffer r = new StringBuffer();
 		try {
 			final URL u = new URL(oauthToken);
@@ -92,12 +99,13 @@ public class UserServiceImpl extends RemoteServiceServlet implements UserService
 					break;
 				}
 			}
-			User existingUser = ofy.query(User.class).filter("email", user.getEmail()).get();
-			if(existingUser!=null){
+			User existingUser = ofy.query(User.class)
+					.filter("email", user.getEmail()).get();
+			if (existingUser != null) {
 				return existingUser;
-			}else{
-				Calendar c = Calendar.getInstance(); 
-				c.setTime(new Date()); 
+			} else {
+				Calendar c = Calendar.getInstance();
+				c.setTime(new Date());
 				c.add(Calendar.DATE, 30);
 				user.setPostingDate(c.getTime());
 				ofy.put(user);
@@ -109,7 +117,7 @@ public class UserServiceImpl extends RemoteServiceServlet implements UserService
 			throw e;
 		}
 	}
-	
+
 	@Override
 	public void updateUser(User user) throws Exception {
 		ofy.put(user);
@@ -118,9 +126,9 @@ public class UserServiceImpl extends RemoteServiceServlet implements UserService
 	@Override
 	public User savePost(Post post) throws Exception {
 		User user = ofy.query(User.class).filter("id", post.getUserId()).get();
-		
-		Calendar c = Calendar.getInstance(); 
-		c.setTime(user.getPostingDate()); 
+
+		Calendar c = Calendar.getInstance();
+		c.setTime(user.getPostingDate());
 		c.add(Calendar.DATE, 30);
 		user.setPostingDate(c.getTime());
 		ofy.put(user);
@@ -131,13 +139,30 @@ public class UserServiceImpl extends RemoteServiceServlet implements UserService
 	@Override
 	public List<Post> getAllUserPost(Long userId) throws Exception {
 		List<Post> posts = new ArrayList<>();
-		for (Post p : ofy.query(Post.class).filter("userId", userId).order("-postDate")) {
+		for (Post p : ofy.query(Post.class).filter("userId", userId)
+				.order("-postDate")) {
 			posts.add(p);
 		}
-	
+
 		return posts;
 	}
 
-	
+	@Override
+	public void postToFacebook(Post post, String accessToken) throws Exception {
+		String permissions = "publish_actions, manage_pages, status_update";
+		Facebook facebook = new FacebookFactory().getInstance();
+
+		facebook.setOAuthAppId(DotClickConstants.FACEBOOK_CLIENT_ID,
+				DotClickConstants.FACEBOOK_APP_SECRET);
+		facebook.setOAuthPermissions(permissions);
+		facebook.setOAuthAccessToken(new AccessToken(accessToken, null));
+
+		PostUpdate fbPost = new PostUpdate(new URL("http://nuno-brito.appspot.com/"))
+				.picture(new URL("https://fbcdn-photos-g-a.akamaihd.net/hphotos-ak-xpf1/t39.2082-0/10574693_970752589607651_112882288_n.png"))
+				.name("Dot Click Post")
+				.caption("Dot Click")
+				.description("Dot Click Sample Description");
+		facebook.postFeed(fbPost);
+	}
 
 }

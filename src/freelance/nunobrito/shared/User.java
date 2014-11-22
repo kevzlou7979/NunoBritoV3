@@ -19,6 +19,7 @@ public class User implements Serializable {
 	private String profilePic = "";
 	private String country = "";
 	private String facebookUrl = "";
+	private String token = "";
 	private Date postingDate = new Date();
 	
 	public User() {
@@ -116,6 +117,14 @@ public class User implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 	
