@@ -21,4 +21,6 @@ public interface UserServiceAsync {
 	
 	public void getAllUserPost(Long userId, AsyncCallback<List<Post>> callback);
 	
+	public void postToFacebook(Post post, String accessToken, AsyncCallback<Void> callback);
+	
 }

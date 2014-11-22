@@ -24,12 +24,18 @@
 			color: #999;
 			padding-bottom: 10px;
 		}
+		.btnPost{
+			width: 150px;
+			font-size: 0.8em;
+			background: none repeat scroll 0% 0% rgb(59, 89, 152);
+			float: left;
+			margin-bottom: 10px;
+		}
 	</ui:style>
 	<g:HTMLPanel addStyleNames="{style.panel}">
 	    <g:Label ui:field="lblTime" addStyleNames="{style.lblTime}"/>
+	    <g:Button ui:field="btnPostToFB" text="Post to Facebook" addStyleNames="{res.dotclickcss.dotClickButtonBlue} {style.btnPost}" />
 	    <g:Image resource="{res.bg_login}" addStyleNames="{style.imgPost}"/>
 	    <g:Label ui:field="lblMessage" addStyleNames="{style.lblMessage}"/>
-	    
-	    
 	</g:HTMLPanel>
 </ui:UiBinder> 

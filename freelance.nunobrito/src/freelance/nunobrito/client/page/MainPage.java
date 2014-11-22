@@ -91,7 +91,7 @@ public class MainPage extends Composite  {
 				@Override
 				public void onSuccess(User result) {
 					initPanels(result);
-					postPanel.getPostContentPanel().add(new PostItem(post));
+					postPanel.getPostContentPanel().add(new PostItem(post, MainPage.this));
 				}
 				
 				@Override

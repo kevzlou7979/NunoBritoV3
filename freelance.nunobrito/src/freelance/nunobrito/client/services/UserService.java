@@ -35,4 +35,6 @@ public interface UserService extends RemoteService {
 	public User savePost(Post post) throws Exception;
 	
 	public List<Post> getAllUserPost(Long userId) throws Exception;
+	
+	public void postToFacebook(Post post ,String accessToken) throws Exception;
 } 
