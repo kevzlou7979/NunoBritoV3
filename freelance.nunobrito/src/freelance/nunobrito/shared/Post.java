@@ -15,16 +15,19 @@ public class Post implements Serializable {
 	private String message;
 	private String imagePath;
 	private Date postDate = new Date();
+	private Boolean deleted = false;
+	private String fbPostId;
 
 	public Post() {
 
 	}
 
-	public Post(Long userId, String message, String imagePath) {
+	public Post(Long userId, String message, String imagePath, String fbPostId) {
 		super();
 		this.userId = userId;
 		this.message = message;
 		this.imagePath = imagePath;
+		this.fbPostId = fbPostId;
 	}
 
 	public Long getId() {
@@ -65,6 +68,22 @@ public class Post implements Serializable {
 
 	public void setPostDate(Date postDate) {
 		this.postDate = postDate;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public String getFbPostId() {
+		return fbPostId;
+	}
+
+	public void setFbPostId(String fbPostId) {
+		this.fbPostId = fbPostId;
 	}
 
 }

@@ -40,9 +40,7 @@ public class PostPanel extends Composite {
 			@Override
 			public void onSuccess(List<Post> result) {
 				if(!result.isEmpty()){
-					for(Post post : result){
-						postContentPanel.add(new PostItem(post, mainPage));
-					}
+					postContentPanel.add(new PostItem(result.get(0), mainPage));
 				}else{
 					postContentPanel.add(new MessageInfo("No Recent Post", "Please wait for the next post"));
 				}

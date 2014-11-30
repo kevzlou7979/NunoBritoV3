@@ -21,6 +21,7 @@ public class User implements Serializable {
 	private String facebookUrl = "";
 	private String token = "";
 	private Date postingDate = new Date();
+	private Boolean freeze = false;
 	
 	public User() {
 
@@ -125,6 +126,14 @@ public class User implements Serializable {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public Boolean getFreeze() {
+		return freeze;
+	}
+
+	public void setFreeze(Boolean freeze) {
+		this.freeze = freeze;
 	}
 	
 	

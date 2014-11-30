@@ -85,7 +85,7 @@ public class MainPage extends Composite  {
 	
 	private void checkPost(){
 		if(new Date().after(user.getPostingDate())){
-			final Post post = new Post(user.getId(), "Lorem ipsum dolor sit amet, vim commune voluptua no, incorrupte assueverit per te, feugiat dissentias ei vix. Vix ad petentium expetendis reprehendunt, nec ei definiebas efficiantur. Iisque fabulas eu cum, ut eam libris epicuri. Nulla euripidis abhorreant eu duo.", "path");
+			final Post post = new Post(user.getId(), "Lorem ipsum dolor sit amet, vim commune voluptua no, incorrupte assueverit per te, feugiat dissentias ei vix. Vix ad petentium expetendis reprehendunt, nec ei definiebas efficiantur. Iisque fabulas eu cum, ut eam libris epicuri. Nulla euripidis abhorreant eu duo.", "path", "");
 			UserService.Connect.getService().savePost(post, new AsyncCallback<User>() {
 				
 				@Override
