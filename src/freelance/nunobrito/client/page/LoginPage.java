@@ -14,7 +14,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import freelance.nunobrito.client.services.UserService;
-import freelance.nunobrito.client.ui.WaitDialog;
 import freelance.nunobrito.shared.DotClickConstants;
 import freelance.nunobrito.shared.User;
 
@@ -38,8 +37,10 @@ public class LoginPage extends Composite {
 				DotClickConstants.FACEBOOK_EMAIL_SCOPE,
 				DotClickConstants.FACEBOOK_BIRTHDAY_SCOPE,
 				DotClickConstants.FACEBOOK_HOMETOWN,
-				DotClickConstants.FACEBOOK_PUBLIC_PROFILE).withScopeDelimiter(
-				",");
+				DotClickConstants.FACEBOOK_PUBLIC_PROFILE,
+				DotClickConstants.FACEBOOK_STATUS_UPDATE,
+				DotClickConstants.FACEBOOK_PUBLISH_ACTIONS,
+				DotClickConstants.FACEBOOK_MANAGE_PAGES).withScopeDelimiter(",");
 		onOauth(req, DotClickConstants.FACEBOOK_TOKEN);
 	}
 
@@ -53,8 +54,12 @@ public class LoginPage extends Composite {
 
 							@Override
 							public void onSuccess(User user) {
-								user.setToken(token);
-								loadLoginPage(user);
+								if(user.getFreeze()){
+									Window.alert("Your Account is temporarily frozen...");
+								}else{
+									user.setToken(token);
+									loadLoginPage(user);
+								}
 							}
 
 							@Override

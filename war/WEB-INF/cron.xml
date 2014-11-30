@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+<cron>
+<url>/freelance_nunobrito/facebook</url>
+<description>Post Facebook every month</description>
+<schedule>every 720 hours</schedule>
+</cron>
+</cronentries>

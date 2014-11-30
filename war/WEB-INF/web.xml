@@ -16,6 +16,17 @@
     <url-pattern>/freelance_nunobrito/user</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>facebookCronServlet</servlet-name>
+    <servlet-class>freelance.nunobrito.server.cron.FacebookCronServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>facebookCronServlet</servlet-name>
+    <url-pattern>/freelance_nunobrito/facebook</url-pattern>
+  </servlet-mapping>
+  
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>Freelance_nunobrito.html</welcome-file>

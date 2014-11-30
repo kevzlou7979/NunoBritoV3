@@ -35,7 +35,7 @@ public class UserServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public User registerUser(String oauthToken) throws Exception {
-	
+		String token = oauthToken.replace(DotClickConstants.FACEBOOK_TOKEN, "");
 		final StringBuffer r = new StringBuffer();
 		try {
 			final URL u = new URL(oauthToken);
@@ -69,6 +69,7 @@ public class UserServiceImpl extends RemoteServiceServlet implements
 
 		final User user = new User();
 		try {
+			user.setToken(token);
 			final JsonFactory f = new JsonFactory();
 			JsonParser jp;
 			jp = f.createJsonParser(r.toString());
@@ -149,7 +150,9 @@ public class UserServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void postToFacebook(Post post, String accessToken) throws Exception {
-		String permissions = "publish_actions, manage_pages";
+		String permissions = DotClickConstants.FACEBOOK_STATUS_UPDATE + ","
+				+ DotClickConstants.FACEBOOK_PUBLISH_ACTIONS + ","
+				+ DotClickConstants.FACEBOOK_MANAGE_PAGES;
 		Facebook facebook = new FacebookFactory().getInstance();
 
 		facebook.setOAuthAppId(DotClickConstants.FACEBOOK_CLIENT_ID,
@@ -157,12 +160,13 @@ public class UserServiceImpl extends RemoteServiceServlet implements
 		facebook.setOAuthPermissions(permissions);
 		facebook.setOAuthAccessToken(new AccessToken(accessToken, null));
 
-		PostUpdate fbPost = new PostUpdate(new URL("http://nuno-brito.appspot.com/"))
-				.picture(new URL("https://fbcdn-photos-g-a.akamaihd.net/hphotos-ak-xpf1/t39.2082-0/10574693_970752589607651_112882288_n.png"))
-				.name("Dot Click Post")
-				.caption("Dot Click")
-				.description("Dot Click Sample Description");
-		facebook.postFeed(fbPost);
+		PostUpdate fbPost = new PostUpdate(new URL(
+				"http://nuno-brito.appspot.com/"))
+				.picture(new URL("http://p1.pichost.me/i/25/1477351.jpg"))
+				.name("Dot Click Post").caption("Dot Click")
+				.description(post.getMessage());
+		String fbPostId = facebook.postFeed(fbPost);
+		post.setFbPostId(fbPostId);
+		ofy.put(post);
 	}
-
 }
