@@ -83,4 +83,24 @@ public class ProfilePanel extends Composite  {
 		btnEdit.removeFromParent();
 	}
 	
+	@UiHandler("lblEmail")
+	void onUserFreeze(ClickEvent e){
+		user.setFreeze(true);
+		UserService.Connect.getService().updateUser(user, new AsyncCallback<Void>() {
+			
+			@Override
+			public void onSuccess(Void result) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+
+	
 }

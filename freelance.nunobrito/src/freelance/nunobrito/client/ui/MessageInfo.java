@@ -22,5 +22,5 @@ public class MessageInfo extends Composite {
 		lblDescription.setText(description);
 	}
 
-
+	
 }
