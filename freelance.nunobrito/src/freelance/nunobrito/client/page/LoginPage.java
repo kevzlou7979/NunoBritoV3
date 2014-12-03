@@ -54,12 +54,7 @@ public class LoginPage extends Composite {
 
 							@Override
 							public void onSuccess(User user) {
-								if(user.getFreeze()){
-									Window.alert("Your Account is temporarily frozen...");
-								}else{
-									user.setToken(token);
-									loadLoginPage(user);
-								}
+								loadLoginPage(user);
 							}
 
 							@Override

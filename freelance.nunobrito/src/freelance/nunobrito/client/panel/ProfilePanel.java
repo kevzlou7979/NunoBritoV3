@@ -27,7 +27,7 @@ public class ProfilePanel extends Composite  {
 	interface ProfilePanelUiBinder extends UiBinder<Widget, ProfilePanel> {
 	}
 
-	@UiField Image imgProfilePic;
+	@UiField Image imgProfilePic, btnEdit;
 	@UiField Label lblName, lblEmail, lblCountry, lblPostingDate;
 	@UiField DatePicker datePickerAds;
 	@UiField HTMLPanel postingDatePanel;
@@ -77,6 +77,10 @@ public class ProfilePanel extends Composite  {
 				Window.alert(caught.getMessage());
 			}
 		});
+	}
+	
+	public void setFrozeAccountUI(){
+		btnEdit.removeFromParent();
 	}
 	
 }
