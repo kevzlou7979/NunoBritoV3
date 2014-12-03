@@ -16,6 +16,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import freelance.nunobrito.client.dialog.DotClickDialog;
+import freelance.nunobrito.client.dialog.UserFrozeDialog;
 import freelance.nunobrito.client.item.PostItem;
 import freelance.nunobrito.client.panel.PostPanel;
 import freelance.nunobrito.client.panel.ProfilePanel;
@@ -51,6 +53,14 @@ public class MainPage extends Composite  {
 		lblEmail.setText(user.getEmail());
 		
 		checkPost();
+		
+	}
+	
+	private void isUserFrozen(User user){
+		if(user.getFreeze()){
+			new DotClickDialog(new UserFrozeDialog(), 30, 40, 40);
+			profilePanel.setFrozeAccountUI();
+		}
 	}
 	
 	
@@ -60,6 +70,7 @@ public class MainPage extends Composite  {
 		postPanel = new PostPanel(this);
 		bodyPanel.add(profilePanel);
 		bodyPanel.add(postPanel);
+		isUserFrozen(user);
 	}
 	
 	@UiHandler("lblHomePage")

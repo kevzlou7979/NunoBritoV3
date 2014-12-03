@@ -1,0 +1,19 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.dialogPanel{
+			background: #fff;
+		}
+		.btnClose{
+			float: right;
+			color: #373737;
+			font-size: 1.5em;
+			cursor: pointer;
+			padding: 10px;
+		}
+	</ui:style>
+	<g:HTMLPanel ui:field="dialogPanel" addStyleNames="{style.dialogPanel}">
+		<g:Label text="x" ui:field="btnClose" addStyleNames="{style.btnClose}"/>
+	</g:HTMLPanel>
+</ui:UiBinder> 
